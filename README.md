@@ -1,4 +1,4 @@
-# AAF – Application Aversary Simulation Framewok
+# AAF – Application Aversary Simulation Framework
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/yourusername/uasf)
 [![License](https://img.shields.io/badge/license-Authorized%20Testing%20Only-red.svg)](LICENSE)
