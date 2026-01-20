@@ -1,0 +1,25 @@
+# Ignore test runs and evidence
+output/
+evidence/
+runs/
+results.json
+*.log
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Runtime state
+.runtime/

@@ -1,0 +1,90 @@
+{
+    "name": "Authentication Flow Abuse",
+    "description": "Rate-safe authentication abuse testing including failed logins and password reset flow",
+    "steps": [
+        {
+            "method": "POST",
+            "path": "/login",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)",
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "body": "username=admin&password=wrongpassword1",
+            "repeat": 1,
+            "sleep_ms": 500,
+            "expect_http_codes": [
+                200,
+                401,
+                403,
+                429
+            ]
+        },
+        {
+            "method": "POST",
+            "path": "/login",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)",
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "body": "username=admin&password=wrongpassword2",
+            "repeat": 1,
+            "sleep_ms": 500,
+            "expect_http_codes": [
+                200,
+                401,
+                403,
+                429
+            ]
+        },
+        {
+            "method": "POST",
+            "path": "/login",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)",
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "body": "username=admin&password=wrongpassword3",
+            "repeat": 1,
+            "sleep_ms": 500,
+            "expect_http_codes": [
+                200,
+                401,
+                403,
+                429
+            ]
+        },
+        {
+            "method": "POST",
+            "path": "/password-reset",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)",
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "body": "email=admin@example.com",
+            "repeat": 3,
+            "sleep_ms": 200,
+            "expect_http_codes": [
+                200,
+                429,
+                503
+            ]
+        },
+        {
+            "method": "POST",
+            "path": "/api/auth/token",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)",
+                "Content-Type": "application/json"
+            },
+            "body": "{\"grant_type\":\"password\",\"username\":\"test\",\"password\":\"invalid\"}",
+            "repeat": 1,
+            "sleep_ms": 500,
+            "expect_http_codes": [
+                200,
+                401,
+                403,
+                429
+            ]
+        }
+    ]
+}

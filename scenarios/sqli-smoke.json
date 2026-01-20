@@ -1,0 +1,62 @@
+{
+  "name": "SQL Injection Smoke Test",
+  "description": "Safe SQL injection detection test using common SQLi patterns without data extraction",
+  "steps": [
+    {
+      "method": "GET",
+      "path": "/search?q=' OR '1'='1",
+      "headers": {
+        "User-Agent": "UASF/1.0 (Security Testing)"
+      },
+      "body": "",
+      "repeat": 1,
+      "sleep_ms": 100,
+      "expect_http_codes": [200, 403, 406]
+    },
+    {
+      "method": "GET",
+      "path": "/search?q=1' UNION SELECT NULL--",
+      "headers": {
+        "User-Agent": "UASF/1.0 (Security Testing)"
+      },
+      "body": "",
+      "repeat": 1,
+      "sleep_ms": 100,
+      "expect_http_codes": [200, 403, 406]
+    },
+    {
+      "method": "GET",
+      "path": "/api/users?id=1' AND '1'='1",
+      "headers": {
+        "User-Agent": "UASF/1.0 (Security Testing)"
+      },
+      "body": "",
+      "repeat": 1,
+      "sleep_ms": 100,
+      "expect_http_codes": [200, 403, 406]
+    },
+    {
+      "method": "POST",
+      "path": "/login",
+      "headers": {
+        "User-Agent": "UASF/1.0 (Security Testing)",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "username=admin' OR '1'='1'--&password=test",
+      "repeat": 1,
+      "sleep_ms": 100,
+      "expect_http_codes": [200, 401, 403, 406]
+    },
+    {
+      "method": "GET",
+      "path": "/products?category=electronics' OR 1=1--",
+      "headers": {
+        "User-Agent": "UASF/1.0 (Security Testing)"
+      },
+      "body": "",
+      "repeat": 1,
+      "sleep_ms": 100,
+      "expect_http_codes": [200, 403, 406]
+    }
+  ]
+}

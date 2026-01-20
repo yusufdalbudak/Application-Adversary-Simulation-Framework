@@ -1,0 +1,97 @@
+{
+    "name": "Reflected XSS Smoke Test",
+    "description": "Safe reflected XSS detection test using common XSS patterns without persistence",
+    "steps": [
+        {
+            "method": "GET",
+            "path": "/search?q=<script>alert('XSS')</script>",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)"
+            },
+            "body": "",
+            "repeat": 1,
+            "sleep_ms": 100,
+            "expect_http_codes": [
+                200,
+                403,
+                406
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/search?q=<img src=x onerror=alert('XSS')>",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)"
+            },
+            "body": "",
+            "repeat": 1,
+            "sleep_ms": 100,
+            "expect_http_codes": [
+                200,
+                403,
+                406
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/profile?name=<svg/onload=alert('XSS')>",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)"
+            },
+            "body": "",
+            "repeat": 1,
+            "sleep_ms": 100,
+            "expect_http_codes": [
+                200,
+                403,
+                406
+            ]
+        },
+        {
+            "method": "POST",
+            "path": "/comment",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)",
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "body": "comment=<script>alert(document.cookie)</script>",
+            "repeat": 1,
+            "sleep_ms": 100,
+            "expect_http_codes": [
+                200,
+                403,
+                406
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/redirect?url=javascript:alert('XSS')",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)"
+            },
+            "body": "",
+            "repeat": 1,
+            "sleep_ms": 100,
+            "expect_http_codes": [
+                200,
+                403,
+                406
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/search?q=\"><script>alert(String.fromCharCode(88,83,83))</script>",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)"
+            },
+            "body": "",
+            "repeat": 1,
+            "sleep_ms": 100,
+            "expect_http_codes": [
+                200,
+                403,
+                406
+            ]
+        }
+    ]
+}

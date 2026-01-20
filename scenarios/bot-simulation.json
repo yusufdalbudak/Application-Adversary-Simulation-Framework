@@ -1,0 +1,80 @@
+{
+    "name": "Bot Behavior Simulation",
+    "description": "Test anti-automation and bot detection controls with rapid legitimate requests",
+    "steps": [
+        {
+            "method": "GET",
+            "path": "/api/products",
+            "headers": {},
+            "body": "",
+            "repeat": 5,
+            "sleep_ms": 50,
+            "expect_http_codes": [
+                200,
+                429,
+                503
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/products?page=1",
+            "headers": {
+                "User-Agent": "Python/3.9 requests/2.28.0"
+            },
+            "body": "",
+            "repeat": 3,
+            "sleep_ms": 100,
+            "expect_http_codes": [
+                200,
+                403,
+                429
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/products?page=2",
+            "headers": {
+                "User-Agent": "curl/7.88.0"
+            },
+            "body": "",
+            "repeat": 3,
+            "sleep_ms": 100,
+            "expect_http_codes": [
+                200,
+                403,
+                429
+            ]
+        },
+        {
+            "method": "POST",
+            "path": "/api/search",
+            "headers": {
+                "User-Agent": "Automation-Script/1.0",
+                "Content-Type": "application/json"
+            },
+            "body": "{\"query\":\"test\"}",
+            "repeat": 4,
+            "sleep_ms": 75,
+            "expect_http_codes": [
+                200,
+                403,
+                429
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/",
+            "headers": {
+                "User-Agent": "Mozilla/5.0 (compatible; Scraperbot/1.0)"
+            },
+            "body": "",
+            "repeat": 2,
+            "sleep_ms": 200,
+            "expect_http_codes": [
+                200,
+                403,
+                429
+            ]
+        }
+    ]
+}

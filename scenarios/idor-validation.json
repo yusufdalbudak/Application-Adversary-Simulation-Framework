@@ -1,0 +1,104 @@
+{
+    "name": "IDOR & Broken Access Control Validation",
+    "description": "Test for insecure direct object references and broken authorization controls",
+    "steps": [
+        {
+            "method": "GET",
+            "path": "/api/users/1",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)",
+                "Authorization": "Bearer test-token-user-999"
+            },
+            "body": "",
+            "repeat": 1,
+            "sleep_ms": 100,
+            "expect_http_codes": [
+                200,
+                401,
+                403
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/users/2",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)",
+                "Authorization": "Bearer test-token-user-999"
+            },
+            "body": "",
+            "repeat": 1,
+            "sleep_ms": 100,
+            "expect_http_codes": [
+                200,
+                401,
+                403
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/api/orders/12345",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)",
+                "Authorization": "Bearer test-token-user-999"
+            },
+            "body": "",
+            "repeat": 1,
+            "sleep_ms": 100,
+            "expect_http_codes": [
+                200,
+                401,
+                403,
+                404
+            ]
+        },
+        {
+            "method": "PUT",
+            "path": "/api/users/1/email",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)",
+                "Authorization": "Bearer test-token-user-999",
+                "Content-Type": "application/json"
+            },
+            "body": "{\"email\":\"attacker@evil.com\"}",
+            "repeat": 1,
+            "sleep_ms": 100,
+            "expect_http_codes": [
+                200,
+                401,
+                403
+            ]
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/users/1",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)",
+                "Authorization": "Bearer test-token-user-999"
+            },
+            "body": "",
+            "repeat": 1,
+            "sleep_ms": 100,
+            "expect_http_codes": [
+                200,
+                401,
+                403
+            ]
+        },
+        {
+            "method": "GET",
+            "path": "/admin/dashboard",
+            "headers": {
+                "User-Agent": "UASF/1.0 (Security Testing)",
+                "Authorization": "Bearer test-token-user-999"
+            },
+            "body": "",
+            "repeat": 1,
+            "sleep_ms": 100,
+            "expect_http_codes": [
+                200,
+                401,
+                403
+            ]
+        }
+    ]
+}
